@@ -1,0 +1,23 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.headerTitle a {
+    color: #000;
+}
+
+.headerInner {
+    margin: 5px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerMenuBlockList {
+    display: flex;
+
+    li {
+        margin: 0 10px;
+    }
+}
