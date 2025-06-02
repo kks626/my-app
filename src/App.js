@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./styles.css";
 
 export default function App() {
@@ -49,6 +49,7 @@ export default function App() {
       }
     };
 
+    sendMemo();
   };
 
   const updateMemoText = (id, newText) => {
@@ -60,6 +61,24 @@ export default function App() {
   const deleteMemo = (id) => {
     setMemos((prev) => prev.filter((memo) => memo.id !== id));
   };
+
+  // ...Appコンポーネントの中
+  useEffect(() => {
+    const fetchMemos = async () => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/memos`);
+        const data = await res.json();
+        setMemos(data);
+        // IDとZのカウンターも更新しておこう
+        idCounter.current = Math.max(...data.map((m) => m.id), 0) + 1;
+        zCounter.current = Math.max(...data.map((m) => m.z), 0) + 1;
+      } catch (error) {
+        console.error("メモの取得に失敗しました", error);
+      }
+    };
+
+    fetchMemos();
+  }, []);
 
   return (
     <div className="board">
@@ -150,23 +169,3 @@ function MemoItem({
     </div>
   );
 }
-
-import { useEffect } from "react";
-
-// ...Appコンポーネントの中
-useEffect(() => {
-  const fetchMemos = async () => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/memos`);
-      const data = await res.json();
-      setMemos(data);
-      // IDとZのカウンターも更新しておこう
-      idCounter.current = Math.max(...data.map((m) => m.id), 0) + 1;
-      zCounter.current = Math.max(...data.map((m) => m.z), 0) + 1;
-    } catch (error) {
-      console.error("メモの取得に失敗しました", error);
-    }
-  };
-
-  fetchMemos();
-}, []);
