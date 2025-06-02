@@ -68,6 +68,10 @@ export default function App() {
 
   const deleteMemo = (id) => {
     setMemos((prev) => prev.filter((memo) => memo.id !== id));
+
+    fetch(`http://localhost:8000/memos/${id}`, {
+      method: "DELETE"
+    });
   };
 
   // ...Appコンポーネントの中
