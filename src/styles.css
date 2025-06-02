@@ -1,0 +1,103 @@
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+@media screen and (max-width: 1720px) {
+    html {
+        font-size: 0.581vw;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    html {
+        font-size: 1.333vw;
+    }
+}
+
+.board-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2ren;
+    background: #f0f0f0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.board-column {
+    position: relative;
+    /* これ必須 */
+    width: 30rem;
+    /* 適宜 */
+    min-height: 40rem;
+    /* 適宜 */
+    border: 1px solid #ccc;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.add-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.6rem;
+    font-size: 1.6rem;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.memo {
+    position: absolute;
+    width: 28rem;
+    min-height: 22rem;
+    background: #fff8c6;
+    border: 1px solid #e0c97f;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.memo-text {
+    width: 100%;
+    min-height: 15rem;
+    border: none;
+    background: transparent;
+    resize: none;
+    font-size: 2rem;
+    line-height: 1.4;
+    font-family: sans-serif;
+    outline: none;
+}
+
+.memo-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.memo-controls button {
+    font-size: 1.4rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+button.delete-button {
+    cursor: pointer;
+    border: none;
+    background-color: #ff3939;
+    color: #fff;
+    padding: 0.5rem 1.4rem;
+    border-radius: 50px;
+    font-size: 3rem;
+}
+
+.delete-button:hover {
+    opacity: 0.8;
+}
