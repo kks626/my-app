@@ -34,6 +34,19 @@ export default function App() {
       z: zCounter.current++,
     };
     setMemos((prev) => [...prev, newMemo]);
+
+    // 👇 FastAPIにPOSTリクエスト
+    try {
+      await fetch("http://localhost:8000/memos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMemo),
+      });
+    } catch (error) {
+      console.error("メモの送信に失敗しました", error);
+    }
   };
 
   const updateMemoText = (id, newText) => {
@@ -135,3 +148,23 @@ function MemoItem({
     </div>
   );
 }
+
+import { useEffect } from "react";
+
+// ...Appコンポーネントの中
+useEffect(() => {
+  const fetchMemos = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/memos");
+      const data = await res.json();
+      setMemos(data);
+      // IDとZのカウンターも更新しておこう
+      idCounter.current = Math.max(...data.map((m) => m.id), 0) + 1;
+      zCounter.current = Math.max(...data.map((m) => m.z), 0) + 1;
+    } catch (error) {
+      console.error("メモの取得に失敗しました", error);
+    }
+  };
+
+  fetchMemos();
+}, []);
