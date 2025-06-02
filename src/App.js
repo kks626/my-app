@@ -35,18 +35,20 @@ export default function App() {
     };
     setMemos((prev) => [...prev, newMemo]);
 
-    // 👇 FastAPIにPOSTリクエスト
-    try {
-      await fetch("http://localhost:8000/memos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newMemo),
-      });
-    } catch (error) {
-      console.error("メモの送信に失敗しました", error);
-    }
+    const sendMemo = async () => {
+      try {
+        await fetch("http://localhost:8000/memos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: "メモの内容" }),
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
   };
 
   const updateMemoText = (id, newText) => {
