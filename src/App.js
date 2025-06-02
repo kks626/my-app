@@ -42,10 +42,10 @@ export default function App() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ text: "メモの内容" }),
+          body: JSON.stringify(newMemo),
         });
       } catch (err) {
-        console.error(err);
+        console.error("メモの送信に失敗", err);
       }
     };
 
