@@ -74,7 +74,7 @@ export default function App() {
   useEffect(() => {
     const fetchMemos = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/memos`);
+        const res = await fetch("http://localhost:8000/memos");
         const data = await res.json();
         setMemos(data);
         // IDとZのカウンターも更新しておこう
