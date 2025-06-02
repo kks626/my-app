@@ -155,7 +155,7 @@ import { useEffect } from "react";
 useEffect(() => {
   const fetchMemos = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/memos`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/memos`);
       const data = await res.json();
       setMemos(data);
       // IDとZのカウンターも更新しておこう
