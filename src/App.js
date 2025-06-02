@@ -33,19 +33,27 @@ export default function App() {
       y: Math.random() * 300 + 50,
       z: zCounter.current++,
     };
+
+    // まずReactの状態に追加
     setMemos((prev) => [...prev, newMemo]);
 
+    // FastAPIに送信する関数
     const sendMemo = async () => {
       try {
-        await fetch("http://localhost:8000/memos", {
+        const res = await fetch("http://localhost:8000/memos", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newMemo),
+          body: JSON.stringify(newMemo),  // ここがポイント！
         });
-      } catch (err) {
-        console.error("メモの送信に失敗", err);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        console.log("サーバーに保存成功:", data);
+      } catch (error) {
+        console.error("保存に失敗しました:", error);
       }
     };
 
